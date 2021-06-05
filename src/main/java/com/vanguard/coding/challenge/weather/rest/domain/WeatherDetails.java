@@ -3,6 +3,8 @@
  */
 package com.vanguard.coding.challenge.weather.rest.domain;
 
+import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.Data;
@@ -13,17 +15,14 @@ import lombok.Data;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Data
-public class Weather {
+public class WeatherDetails {
 
-	private int id;
-	private String main;
-	private String description;
-	private String icon;
+	private String name;
+	private List<Weather> weather;
 
 	@Override
 	public String toString() {
-		return "Weather{ id= " + id + ", main= '" + main + "' , "
-				+ "description= '" + description + "', icon= '" + icon	+ "' }";
+		return "WeatherDetails{ name= '" + name + "', weather= " + weather + " }";
 	}
 
 }

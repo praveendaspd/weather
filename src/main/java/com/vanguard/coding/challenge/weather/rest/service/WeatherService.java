@@ -3,9 +3,14 @@
  */
 package com.vanguard.coding.challenge.weather.rest.service;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.vanguard.coding.challenge.weather.rest.domain.Weather;
+import com.vanguard.coding.challenge.weather.rest.client.RestClient;
+import com.vanguard.coding.challenge.weather.rest.domain.WeatherDetails;
+import com.vanguard.coding.challenge.weather.rest.domain.WeatherWrapper;
 
 /**
  * @author praveendas
@@ -14,11 +19,27 @@ import com.vanguard.coding.challenge.weather.rest.domain.Weather;
 @Service
 public class WeatherService {
 
-	public Weather getWeatherDetails() {
+	@Autowired
+	private RestClient restClient;
 
-		Weather weather = new Weather();
+	public WeatherService(RestClient restClient) {
+		this.restClient = restClient;
+	}
 
-		return weather;
+	public WeatherWrapper getWeatherDetails() {
+
+		Logger logger = LoggerFactory.getLogger(WeatherService.class);
+
+		//RestClient to make API call to OpenWeatherMap
+		WeatherDetails weatherDetails = restClient.makeRestCall();
+		
+		logger.info(weatherDetails.toString());
+		
+		// Wrapper to only extract and store Description field
+		WeatherWrapper wrapper = new WeatherWrapper();
+		wrapper.setDescription(weatherDetails.getWeather().get(0).getDescription());
+
+		return wrapper;
 
 	}
 
