@@ -14,13 +14,13 @@ import lombok.extern.slf4j.Slf4j;
 public class WeatherApplication {
 
 	private static Logger logger = LoggerFactory.getLogger(WeatherApplication.class);
-			
+
 	public static void main(String[] args) {
-		
+
 		SpringApplication.run(WeatherApplication.class, args);
-		
+
 		logger.info("###### WeatherApplication is up and running ##### ");
-		
+
 	}
 
 }
