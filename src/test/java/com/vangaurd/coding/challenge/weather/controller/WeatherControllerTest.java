@@ -34,7 +34,7 @@ public class WeatherControllerTest {
 
 		Mockito.when(weatherService.getWeatherDetails()).thenReturn(weatherWrapper);
 
-		mockMvc.perform(get("/getWeather")).andExpect(status().isOk())
+		mockMvc.perform(get("/getWeatherDetails")).andExpect(status().isOk())
 				.andExpect(jsonPath("description", Matchers.equalTo("Overcast clouds")));
 
 	}
