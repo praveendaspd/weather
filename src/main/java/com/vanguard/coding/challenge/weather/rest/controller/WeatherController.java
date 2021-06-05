@@ -29,7 +29,7 @@ public class WeatherController {
 	@Autowired
 	WeatherService weatherService;
 
-	@GetMapping("/getWeather")
+	@GetMapping("/getWeatherDetails")
 	public ResponseEntity<WeatherWrapper> getCurrentWeather() {
 
 		WeatherWrapper wrapper = new WeatherWrapper();

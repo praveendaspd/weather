@@ -30,8 +30,6 @@ public class RestClient {
 		// Call the OpenWeatherMap API
 		weatherDetails = restTemplate.getForObject(uri, WeatherDetails.class);
 
-		logger.info(weatherDetails.toString());
-
 		return weatherDetails;
 	}
 
