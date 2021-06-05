@@ -13,6 +13,8 @@ import com.vanguard.coding.challenge.weather.rest.domain.WeatherDetails;
 import com.vanguard.coding.challenge.weather.rest.domain.WeatherWrapper;
 
 /**
+ * Service Layer class for the Weather App
+ * 
  * @author praveendas
  *
  */
@@ -26,6 +28,11 @@ public class WeatherService {
 		this.restClient = restClient;
 	}
 
+	/**
+	 * Method to call the RestClient and map the ServieResponse to WeatherWrapper Entity 
+	 * 
+	 * @return {@link WeatherWrapper}
+	 */
 	public WeatherWrapper getWeatherDetails() {
 
 		Logger logger = LoggerFactory.getLogger(WeatherService.class);

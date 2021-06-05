@@ -17,6 +17,9 @@ import com.vanguard.coding.challenge.weather.rest.service.WeatherService;
 import lombok.extern.slf4j.Slf4j;
 
 /**
+ * RestController class to return Response Object/Entity as a JSON Object
+ * Acts as a Controller as well as ResponseBody
+ * 
  * @author praveendas
  *
  */

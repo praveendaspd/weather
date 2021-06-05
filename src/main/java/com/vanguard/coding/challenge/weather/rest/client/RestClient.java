@@ -11,6 +11,8 @@ import org.springframework.web.client.RestTemplate;
 import com.vanguard.coding.challenge.weather.rest.domain.WeatherDetails;
 
 /**
+ * Spring managed Component to make REST API calls to OpenWeatherMap
+ * 
  * @author praveendas
  *
  */
@@ -23,6 +25,11 @@ public class RestClient {
 
 	final static String uri = "http://api.openweathermap.org/data/2.5/weather?q=Melbourne&appid=c8aadb8f4504f95b5a9144313cd96f81";
 
+	/**
+	 * Method to call the OpenWeatherMap API
+	 * 
+	 * @return {@link WeatherDetails}
+	 */
 	public WeatherDetails makeRestCall() {
 
 		WeatherDetails weatherDetails = new WeatherDetails();
