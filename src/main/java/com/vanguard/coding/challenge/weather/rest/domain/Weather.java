@@ -3,10 +3,15 @@
  */
 package com.vanguard.coding.challenge.weather.rest.domain;
 
+import lombok.Data;
+
 /**
  * @author praveendas
  *
  */
-public class weather {
+@Data
+public class Weather {
+	
+	private String city;
 
 }
