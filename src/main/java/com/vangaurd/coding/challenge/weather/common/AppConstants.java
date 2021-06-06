@@ -9,6 +9,6 @@ package com.vangaurd.coding.challenge.weather.common;
  */
 public class AppConstants {
 	
-	public static String NOTIFY_ADMIN = "NOTIFY_ADMIN";
+	public static String OPEN_WEATHER_MAP_QUERY = "http://api.openweathermap.org/data/2.5/weather?q=";
 
 }
