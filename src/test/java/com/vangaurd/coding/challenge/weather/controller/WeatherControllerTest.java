@@ -26,6 +26,11 @@ public class WeatherControllerTest {
 
 	@MockBean
 	private WeatherService weatherService;
+	
+	private static final String VALID_URL = "/getWeatherDetails?city=Melbourne&country=AU&apiKey=c8aadb8f4504f95b5a9144313cd96f84";
+	private static final String INVALID_URL = "/getWeather?city=Melbourne&country=AU&apiKey=c8aadb8f4504f95b5a9144313cd96f84";
+	private static final String INVALID_API_KEY = "/getWeatherDetail?city=Melbourne&country=AU&apiKey=c8aadb8f4504f95b5a9144313cd96f89";
+
 
 	@Test
 	public void testGetWeatherService() throws Exception {
@@ -36,23 +41,34 @@ public class WeatherControllerTest {
 		WeatherEntity weatherEntity = new WeatherEntity();
 		weatherEntity.setCountry("AU");
 		weatherEntity.setCity("Melbourne");
-		weatherEntity.setApiKey("123");
+		weatherEntity.setApiKey("c8aadb8f4504f95b5a9144313cd96f84");
 
 		Mockito.when(weatherService.getWeatherDetails(weatherEntity)).thenReturn(weatherWrapper);
 
-		mockMvc.perform(get("/getWeatherDetails?city=Melbourne&country=AU&apiKey=123")).andExpect(status().isOk())
+		mockMvc.perform(get(VALID_URL)).andExpect(status().isOk())
 				.andExpect(jsonPath("description", Matchers.equalTo("Overcast clouds")));
 
 	}
 
 	@Test
-	public void testGetWeatherService_negative_notFound() throws Exception {
+	public void testGetWeatherService_negative_isNotFound() throws Exception {
 
 		WeatherWrapper weatherWrapper = new WeatherWrapper();
 		weatherWrapper.setDescription("Overcast clouds");
 
 		Mockito.when(weatherService.getWeatherDetails(new WeatherEntity())).thenReturn(weatherWrapper);
-		mockMvc.perform(get("/getWeathers")).andExpect(status().isNotFound());
+		mockMvc.perform(get(INVALID_URL)).andExpect(status().isNotFound());
+
+	}
+	
+	@Test
+	public void testGetWeatherService_negative_isUnauthorized() throws Exception {
+
+		WeatherWrapper weatherWrapper = new WeatherWrapper();
+		weatherWrapper.setDescription("Overcast clouds");
+
+		Mockito.when(weatherService.getWeatherDetails(new WeatherEntity())).thenReturn(weatherWrapper);
+		mockMvc.perform(get(INVALID_API_KEY)).andExpect(status().isUnauthorized());
 
 	}
 
