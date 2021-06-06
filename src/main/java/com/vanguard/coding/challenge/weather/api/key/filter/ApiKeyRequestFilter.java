@@ -56,6 +56,8 @@ public class ApiKeyRequestFilter extends GenericFilterBean {
 			
 		} else {
 			
+			logger.info("API Key Validation failed! Invalid apiKey : {}", apiKey[0]);
+			
 			HttpServletResponse resp = (HttpServletResponse) response;
 			String error = "API Key Validation failed - Invalid API KEY!";
 
