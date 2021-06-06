@@ -14,6 +14,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.test.web.servlet.MockMvc;
 
 import com.vanguard.coding.challenge.weather.rest.domain.WeatherWrapper;
+import com.vanguard.coding.challenge.weather.rest.entity.WeatherEntity;
 import com.vanguard.coding.challenge.weather.rest.service.WeatherService;
 
 @WebMvcTest
@@ -31,10 +32,15 @@ public class WeatherControllerTest {
 
 		WeatherWrapper weatherWrapper = new WeatherWrapper();
 		weatherWrapper.setDescription("Overcast clouds");
+		
+		WeatherEntity weatherEntity = new WeatherEntity();
+		weatherEntity.setCountry("AU");
+		weatherEntity.setCity("Melbourne");
+		weatherEntity.setApiKey("123");
 
-		Mockito.when(weatherService.getWeatherDetails()).thenReturn(weatherWrapper);
+		Mockito.when(weatherService.getWeatherDetails(weatherEntity)).thenReturn(weatherWrapper);
 
-		mockMvc.perform(get("/getWeatherDetails")).andExpect(status().isOk())
+		mockMvc.perform(get("/getWeatherDetails?city=Melbourne&country=AU&apiKey=123")).andExpect(status().isOk())
 				.andExpect(jsonPath("description", Matchers.equalTo("Overcast clouds")));
 
 	}
@@ -45,7 +51,7 @@ public class WeatherControllerTest {
 		WeatherWrapper weatherWrapper = new WeatherWrapper();
 		weatherWrapper.setDescription("Overcast clouds");
 
-		Mockito.when(weatherService.getWeatherDetails()).thenReturn(weatherWrapper);
+		Mockito.when(weatherService.getWeatherDetails(new WeatherEntity())).thenReturn(weatherWrapper);
 		mockMvc.perform(get("/getWeathers")).andExpect(status().isNotFound());
 
 	}

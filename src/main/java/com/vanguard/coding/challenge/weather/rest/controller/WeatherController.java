@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.vanguard.coding.challenge.weather.rest.domain.WeatherWrapper;
+import com.vanguard.coding.challenge.weather.rest.entity.WeatherEntity;
 import com.vanguard.coding.challenge.weather.rest.exception.BadRequestException;
 import com.vanguard.coding.challenge.weather.rest.service.WeatherService;
 
@@ -44,11 +45,16 @@ public class WeatherController {
 		logger.info("city - {}",city);
 		logger.info("country - {}",country);
 		logger.info("apiKey - {}",apiKey);
+		
+		WeatherEntity weatherEntity = new WeatherEntity();
+		weatherEntity.setCity(city);
+		weatherEntity.setCountry(country);
+		weatherEntity.setApiKey(apiKey);
 
 		WeatherWrapper wrapper = new WeatherWrapper();
 
 		// Service layer call
-		wrapper = weatherService.getWeatherDetails();
+		wrapper = weatherService.getWeatherDetails(weatherEntity);
 
 		logger.info(wrapper.toString());
 

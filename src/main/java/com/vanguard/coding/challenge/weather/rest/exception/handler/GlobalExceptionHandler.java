@@ -8,8 +8,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.client.HttpClientErrorException;
 
 import com.vanguard.coding.challenge.weather.rest.exception.BadRequestException;
+import com.vanguard.coding.challenge.weather.rest.exception.UnauthorizedAccessException;
 
 /**
  * This handler is used as a common place for Error handling 
@@ -38,4 +40,12 @@ public class GlobalExceptionHandler {
 		
 	}
 	
+	@ExceptionHandler(value = HttpClientErrorException.class)
+	public ResponseEntity<String> handleHttpClientException(HttpClientErrorException e) {
+
+		UnauthorizedAccessException exception = new UnauthorizedAccessException(e.getLocalizedMessage());
+		
+		return new ResponseEntity<String>(exception.getMessage(),HttpStatus.UNAUTHORIZED);
+		
+	}
 }
