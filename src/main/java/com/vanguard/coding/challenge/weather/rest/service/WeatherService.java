@@ -10,7 +10,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.vanguard.coding.challenge.weather.common.AppConstants;
 import com.vanguard.coding.challenge.weather.rest.client.RestClient;
 import com.vanguard.coding.challenge.weather.rest.domain.WeatherDetails;
 import com.vanguard.coding.challenge.weather.rest.domain.WeatherWrapper;
@@ -27,7 +26,7 @@ import com.vanguard.coding.challenge.weather.rest.repository.WeatherRepository;
 public class WeatherService {
 
 	@Autowired
-	private RestClient restClient;
+	RestClient restClient;
 	
 	@Autowired
 	WeatherRepository repository;
