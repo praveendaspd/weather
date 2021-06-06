@@ -8,10 +8,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.vanguard.coding.challenge.weather.rest.domain.WeatherWrapper;
+import com.vanguard.coding.challenge.weather.rest.exception.BadRequestException;
 import com.vanguard.coding.challenge.weather.rest.service.WeatherService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -33,7 +37,13 @@ public class WeatherController {
 	WeatherService weatherService;
 
 	@GetMapping("/getWeatherDetails")
-	public ResponseEntity<WeatherWrapper> getCurrentWeather() {
+	public ResponseEntity<WeatherWrapper> getCurrentWeather(@RequestParam(name="city") String city,
+															@RequestParam(name="country") String country,
+															@RequestParam(name="apiKey") String apiKey) throws BadRequestException{
+		
+		logger.info("city - {}",city);
+		logger.info("country - {}",country);
+		logger.info("apiKey - {}",apiKey);
 
 		WeatherWrapper wrapper = new WeatherWrapper();
 
