@@ -42,9 +42,9 @@ public class WeatherController {
 															@RequestParam(name="country") String country,
 															@RequestParam(name="apiKey") String apiKey) throws BadRequestException{
 		
-		logger.info("city - {}",city);
-		logger.info("country - {}",country);
-		logger.info("apiKey - {}",apiKey);
+		logger.debug("city - {}",city);
+		logger.debug("country - {}",country);
+		logger.debug("apiKey - {}",apiKey);
 		
 		WeatherEntity weatherEntity = new WeatherEntity();
 		weatherEntity.setCity(city);

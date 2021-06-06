@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
+import com.vangaurd.coding.challenge.weather.common.AppConstants;
 import com.vanguard.coding.challenge.weather.rest.domain.WeatherDetails;
 import com.vanguard.coding.challenge.weather.rest.entity.WeatherEntity;
 
@@ -53,7 +54,7 @@ public class RestClient {
 	 */
 	private String constructUri(WeatherEntity weatherEntity) {
 		
-		StringBuffer URI = new StringBuffer("http://api.openweathermap.org/data/2.5/weather?q=");
+		StringBuffer URI = new StringBuffer(AppConstants.OPEN_WEATHER_MAP_QUERY);
 		
 		URI.append(weatherEntity.getCity());
 		URI.append(",");
