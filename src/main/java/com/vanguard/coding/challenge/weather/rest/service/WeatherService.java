@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.vanguard.coding.challenge.weather.rest.client.RestClient;
 import com.vanguard.coding.challenge.weather.rest.domain.WeatherDetails;
 import com.vanguard.coding.challenge.weather.rest.domain.WeatherWrapper;
+import com.vanguard.coding.challenge.weather.rest.entity.WeatherEntity;
 
 /**
  * Service Layer class for the Weather App
@@ -33,12 +34,12 @@ public class WeatherService {
 	 * 
 	 * @return {@link WeatherWrapper}
 	 */
-	public WeatherWrapper getWeatherDetails() {
+	public WeatherWrapper getWeatherDetails(WeatherEntity weatherEntity) {
 
 		Logger logger = LoggerFactory.getLogger(WeatherService.class);
 
 		//RestClient to make API call to OpenWeatherMap
-		WeatherDetails weatherDetails = restClient.makeRestCall();
+		WeatherDetails weatherDetails = restClient.makeRestCall(weatherEntity);
 		
 		logger.info(weatherDetails.toString());
 		

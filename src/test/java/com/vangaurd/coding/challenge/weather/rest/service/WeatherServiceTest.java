@@ -18,6 +18,7 @@ import com.vanguard.coding.challenge.weather.rest.client.RestClient;
 import com.vanguard.coding.challenge.weather.rest.domain.Weather;
 import com.vanguard.coding.challenge.weather.rest.domain.WeatherDetails;
 import com.vanguard.coding.challenge.weather.rest.domain.WeatherWrapper;
+import com.vanguard.coding.challenge.weather.rest.entity.WeatherEntity;
 import com.vanguard.coding.challenge.weather.rest.service.WeatherService;
 
 /**
@@ -46,9 +47,14 @@ public class WeatherServiceTest {
 		weatherDetails.setName("Melbourne");
 		weatherDetails.setWeather(weathers);
 		
-		when(restClient.makeRestCall()).thenReturn(weatherDetails);
+		WeatherEntity weatherEntity = new WeatherEntity();
+		weatherEntity.setCountry("AU");
+		weatherEntity.setCity("Melbourne");
+		weatherEntity.setApiKey("123");
 		
-		WeatherWrapper wrapper = weatherService.getWeatherDetails();
+		when(restClient.makeRestCall(weatherEntity)).thenReturn(weatherDetails);
+		
+		WeatherWrapper wrapper = weatherService.getWeatherDetails(weatherEntity);
 		
 		assertEquals(wrapper.getDescription(), "Partly Cloudy"); 
 		
