@@ -8,7 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
-import com.vangaurd.coding.challenge.weather.common.AppConstants;
+import com.vanguard.coding.challenge.weather.common.AppConstants;
 import com.vanguard.coding.challenge.weather.rest.domain.WeatherDetails;
 import com.vanguard.coding.challenge.weather.rest.entity.WeatherEntity;
 

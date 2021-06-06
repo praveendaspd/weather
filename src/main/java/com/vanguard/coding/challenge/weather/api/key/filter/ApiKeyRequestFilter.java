@@ -20,7 +20,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.GenericFilterBean;
 
-import com.vangaurd.coding.challenge.weather.common.AppConstants;
+import com.vanguard.coding.challenge.weather.common.AppConstants;
 
 import lombok.extern.slf4j.Slf4j;
 

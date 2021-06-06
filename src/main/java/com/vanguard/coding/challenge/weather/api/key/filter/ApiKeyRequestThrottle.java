@@ -22,7 +22,7 @@ import org.springframework.stereotype.Component;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
-import com.vangaurd.coding.challenge.weather.common.AppConstants;
+import com.vanguard.coding.challenge.weather.common.AppConstants;
 
 import lombok.extern.slf4j.Slf4j;
 

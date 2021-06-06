@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.vangaurd.coding.challenge.weather.common;
+package com.vanguard.coding.challenge.weather.common;
 
 /**
  * @author praveendas
