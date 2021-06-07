@@ -50,12 +50,15 @@ public class WeatherService {
 		// Wrapper to only extract and store Description field
 		WeatherWrapper wrapper = new WeatherWrapper();
 		
+		logger.info("Weather Entity - {} ",weatherEntity.toString());
+		
+		//Always check the database before making call to the actual API 
 		Optional<WeatherEntity> weather = repository.findByCityAndCountry(weatherEntity.getCity() , weatherEntity.getCountry());
 
 		if(weather.isPresent()) {
 			
 			WeatherEntity entity = weather.get();
-			logger.info("Data if Present- {} ",entity.toString());
+			logger.info("Search data found in Database - {} ",entity.toString());
 			
 			// Wrapper to only extract and store Description field
 			wrapper.setDescription(entity.getDescription());
@@ -71,7 +74,7 @@ public class WeatherService {
 			entity.setDescription(weatherDetails.getWeather().get(0).getDescription());
 			
 			WeatherEntity ent = repository.saveAndFlush(entity);
-			logger.info("Data after calling REST API and persting in DB - {} ",ent);
+			logger.info("Search Data unavailable. Calling OpenWeatherMap API and persting the response in DB - {} ",ent);
 			
 			wrapper.setDescription(weatherDetails.getWeather().get(0).getDescription());
 			
