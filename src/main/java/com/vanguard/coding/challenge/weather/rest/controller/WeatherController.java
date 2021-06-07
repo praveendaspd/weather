@@ -8,8 +8,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -38,9 +36,20 @@ public class WeatherController {
 	WeatherService weatherService;
 
 	@GetMapping("/getWeatherDetails")
-	public ResponseEntity<WeatherWrapper> getCurrentWeather(@RequestParam(name="city") String city,
-															@RequestParam(name="country") String country,
-															@RequestParam(name="apiKey") String apiKey) throws BadRequestException{
+	public ResponseEntity<WeatherWrapper> getCurrentWeather(@RequestParam(name="city" , required = false) String city,
+															@RequestParam(name="country", required = false) String country,
+															@RequestParam(name="apiKey" , required = false) String apiKey) throws BadRequestException{
+		
+		//Validation to throw the field specific error back to the caller
+		if(city == null ) {
+			throw new BadRequestException("city field is required!");
+		}
+		
+		//Validation to throw the field specific error back to the caller
+		if(country == null) {
+			throw new BadRequestException("country field is required!");
+		}
+		
 		
 		logger.debug("city - {}",city);
 		logger.debug("country - {}",country);

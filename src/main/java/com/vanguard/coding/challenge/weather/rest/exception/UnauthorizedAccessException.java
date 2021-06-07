@@ -15,9 +15,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @ResponseStatus(value = HttpStatus.UNAUTHORIZED, reason = "Unauthorized")
 public class UnauthorizedAccessException extends BaseException {
 
-    /**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 
@@ -29,13 +26,4 @@ public class UnauthorizedAccessException extends BaseException {
         super(message);
     }
 
-
-    public UnauthorizedAccessException(String message, Throwable cause) {
-        super(message, cause);
-    }
-
-
-    public UnauthorizedAccessException(Throwable cause) {
-        super(cause);
-    }
 }

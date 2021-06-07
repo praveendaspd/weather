@@ -39,32 +39,48 @@ public class ApiKeyRequestFilter extends GenericFilterBean {
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
-		
+
 		HttpServletRequest req = (HttpServletRequest) request;
-		
-		//Extract the apiKey from the request
-		String[] apiKey = req.getParameterValues("apiKey");
 
-		logger.info("Verifying apiKey: {}", apiKey[0]);
-		
-		Optional<ApiKey> apiKeyOptional = findkey(apiKey[0]);
+		// Extract the apiKey from the request
+		String apiKey = req.getParameter("apiKey");
 
-		if (apiKeyOptional.isPresent()) {
-			
-			logger.info("apiKey validation successful for apiKey : {}", apiKey[0]);
-			chain.doFilter(request, response);
-			
-		} else {
-			
-			logger.info("API Key Validation failed! Invalid apiKey : {}", apiKey[0]);
-			
+		if (null == apiKey) {
+
+			logger.info("API Key is NULL!");
+
 			HttpServletResponse resp = (HttpServletResponse) response;
-			String error = "API Key Validation failed - Invalid API KEY!";
+			String error = "API Key Validation failed - Provide API KEY!";
 
 			resp.reset();
-			resp.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+			resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
 			response.setContentLength(error.length());
 			response.getWriter().write(error);
+
+		} else {
+
+			logger.info("Verifying apiKey: {}", apiKey);
+
+			Optional<ApiKey> apiKeyOptional = findkey(apiKey);
+
+			if (apiKeyOptional.isPresent()) {
+
+				logger.info("apiKey validation successful for apiKey : {}", apiKey);
+				chain.doFilter(request, response);
+
+			} else {
+
+				logger.info("API Key Validation failed! Invalid apiKey : {}", apiKey);
+
+				HttpServletResponse resp = (HttpServletResponse) response;
+				String error = "API Key Validation failed - Invalid API KEY : " + apiKey;
+
+				resp.reset();
+				resp.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+				response.setContentLength(error.length());
+				response.getWriter().write(error);
+			}
+
 		}
 
 	}
@@ -81,21 +97,21 @@ public class ApiKeyRequestFilter extends GenericFilterBean {
 
 		// TODO : If time permits, move this to H2 database
 		// Optional<ApiKey> apiKeyOptional = this.apiKeyRepository.findOneByKey(apiKey);
-		
+
 		List<String> apiKeys = new ArrayList<String>();
 		apiKeys.add(AppConstants.API_KEY_1);
 		apiKeys.add(AppConstants.API_KEY_2);
 		apiKeys.add(AppConstants.API_KEY_3);
 		apiKeys.add(AppConstants.API_KEY_4);
 		apiKeys.add(AppConstants.API_KEY_5);
-		
+
 		if (apiKeys.contains(key)) {
 			ApiKey apiKey = new ApiKey();
 			apiKey.setApiKey(key);
 			return Optional.ofNullable(apiKey);
-			
+
 		} else {
-			
+
 			return Optional.empty();
 		}
 

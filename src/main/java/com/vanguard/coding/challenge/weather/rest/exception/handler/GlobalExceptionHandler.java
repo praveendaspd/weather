@@ -3,15 +3,22 @@
  */
 package com.vanguard.coding.challenge.weather.rest.exception.handler;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.HttpServerErrorException.InternalServerError;
 
+import com.vanguard.coding.challenge.weather.common.AppConstants;
 import com.vanguard.coding.challenge.weather.rest.exception.BadRequestException;
+import com.vanguard.coding.challenge.weather.rest.exception.InternalServerException;
 import com.vanguard.coding.challenge.weather.rest.exception.UnauthorizedAccessException;
+
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * This handler is used as a common place for Error handling 
@@ -20,26 +27,20 @@ import com.vanguard.coding.challenge.weather.rest.exception.UnauthorizedAccessEx
  * @author praveendas
  *
  */
+@Slf4j
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 	
-	/**
-	 * Handle the Bind Exceptions when the mandatory request parameters are not provided
-	 * 
-	 * @param @MissingServletRequestParameterException
-	 * 
-	 * @return custom exception - @BadRequestException
-	 * 
-	 */
-	@ExceptionHandler(value = MissingServletRequestParameterException.class)
-	public ResponseEntity<String> handleBindException(MissingServletRequestParameterException e) {
-
-		BadRequestException exception = new BadRequestException(e.getLocalizedMessage());
-		
-		return new ResponseEntity<String>(exception.getMessage(),HttpStatus.BAD_REQUEST);
-		
-	}
+	Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 	
+	
+	/**
+	 * Handle HttpClientErrorException
+	 * 
+	 * @param HttpClientErrorException
+	 * 
+	 * @return ResponseEntity with UnauthorizedAccessException
+	 */
 	@ExceptionHandler(value = HttpClientErrorException.class)
 	public ResponseEntity<String> handleHttpClientException(HttpClientErrorException e) {
 
@@ -48,4 +49,32 @@ public class GlobalExceptionHandler {
 		return new ResponseEntity<String>(exception.getMessage(),HttpStatus.UNAUTHORIZED);
 		
 	}
+	
+	/**
+	 * Handle BadRequestException and throw a meaningful message back as part of the ResponseEntity
+	 * 
+	 * @param BadRequestException
+	 * 
+	 * @return ResponseEntity with HTTPStatus and message
+	 */
+	@ExceptionHandler(value = BadRequestException.class)
+	public ResponseEntity<String> handleBadRequestException(BadRequestException e) {
+
+		BadRequestException exception = new BadRequestException(e.getLocalizedMessage());
+		
+		return new ResponseEntity<String>(exception.getMessage(),HttpStatus.BAD_REQUEST);
+		
+	}
+	
+	
+	@ExceptionHandler(value = InternalServerError.class)
+	public ResponseEntity<String> handleInternalServerError(InternalServerError e) {
+
+		InternalServerException exception = new InternalServerException(e.getLocalizedMessage());
+		logger.info(exception.getMessage());
+		
+		return new ResponseEntity<String>(AppConstants.INTERNAL_SERVER_EXCEPTION_MESSAGE,HttpStatus.INTERNAL_SERVER_ERROR);
+		
+	}
+	
 }
