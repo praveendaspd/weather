@@ -31,8 +31,9 @@ public class WeatherService {
 	@Autowired
 	WeatherRepository repository;
 
-	public WeatherService(RestClient restClient) {
+	public WeatherService(RestClient restClient, WeatherRepository repository) {
 		this.restClient = restClient;
+		this.repository = repository;
 	}
 
 	/**
