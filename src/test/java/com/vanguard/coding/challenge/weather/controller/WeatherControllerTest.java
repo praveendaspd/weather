@@ -9,12 +9,10 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.test.web.servlet.MockMvc;
 
-import com.vanguard.coding.challenge.weather.WeatherApplication;
 import com.vanguard.coding.challenge.weather.rest.domain.WeatherWrapper;
 import com.vanguard.coding.challenge.weather.rest.entity.WeatherEntity;
 import com.vanguard.coding.challenge.weather.rest.service.WeatherService;
@@ -30,8 +28,9 @@ public class WeatherControllerTest {
 	private WeatherService weatherService;
 	
 	private static final String VALID_URL = "/getWeatherDetails?city=Melbourne&country=AU&apiKey=c8aadb8f4504f95b5a9144313cd96f84";
-	private static final String INVALID_URL = "/getWeather?city=Melbourne&country=AU&apiKey=c8aadb8f4504f95b5a9144313cd96f84";
-	private static final String INVALID_API_KEY = "/getWeatherDetail?city=Melbourne&country=AU&apiKey=c8aadb8f4504f95b5a9144313cd96f89";
+	private static final String INVALID_URL = "/getWeatherDetails?country=AU&apiKey=c8aadb8f4504f95b5a9144313cd96f84";
+	private static final String INVALID_API_KEY = "/getWeatherDetails?city=Melbourne&country=AU&apiKey=c8aadb8f4504f95b5a9144313cd96f89";
+	private static final String INVALID_URL_COUNTRY = "/getWeatherDetails?city=Melbourne&apiKey=c8aadb8f4504f95b5a9144313cd96f84";
 
 
 	@Test
@@ -59,7 +58,7 @@ public class WeatherControllerTest {
 		weatherWrapper.setDescription("Overcast clouds");
 
 		Mockito.when(weatherService.getWeatherDetails(new WeatherEntity())).thenReturn(weatherWrapper);
-		mockMvc.perform(get(INVALID_URL)).andExpect(status().isNotFound());
+		mockMvc.perform(get(INVALID_URL)).andExpect(status().isBadRequest());
 
 	}
 	
@@ -73,5 +72,16 @@ public class WeatherControllerTest {
 		mockMvc.perform(get(INVALID_API_KEY)).andExpect(status().isUnauthorized());
 
 	}
+	
+	@Test
+	public void testGetWeatherService_negative_validateCounty() throws Exception {
 
+		WeatherWrapper weatherWrapper = new WeatherWrapper();
+		weatherWrapper.setDescription("Overcast clouds");
+
+		Mockito.when(weatherService.getWeatherDetails(new WeatherEntity())).thenReturn(weatherWrapper);
+		mockMvc.perform(get(INVALID_URL_COUNTRY)).andExpect(status().isBadRequest());
+
+	}
+	
 }

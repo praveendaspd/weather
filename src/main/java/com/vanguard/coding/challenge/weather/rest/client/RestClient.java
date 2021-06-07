@@ -60,7 +60,7 @@ public class RestClient {
 		URI.append(",");
 		URI.append(weatherEntity.getCountry());
 		URI.append("&appid=");
-		URI.append(weatherEntity.getApiKey());
+		URI.append(AppConstants.API_KEY_2);
 		
 		logger.info(URI.toString());
 		

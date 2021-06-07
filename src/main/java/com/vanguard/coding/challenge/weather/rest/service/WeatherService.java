@@ -50,7 +50,7 @@ public class WeatherService {
 		// Wrapper to only extract and store Description field
 		WeatherWrapper wrapper = new WeatherWrapper();
 		
-		Optional<WeatherEntity> weather = repository.findByApiKey(weatherEntity.getApiKey());
+		Optional<WeatherEntity> weather = repository.findByCityAndCountry(weatherEntity.getCity() , weatherEntity.getCountry());
 
 		if(weather.isPresent()) {
 			

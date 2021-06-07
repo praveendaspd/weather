@@ -41,13 +41,6 @@ public class WeatherEntity {
 
 	}
 
-	public WeatherEntity(String city, String country, String apiKey, String description) {
-		this.city = city;
-		this.country = country;
-		this.apiKey = apiKey;
-		this.description = description;
-
-	}
 	
 	@Override
 	public String toString() {

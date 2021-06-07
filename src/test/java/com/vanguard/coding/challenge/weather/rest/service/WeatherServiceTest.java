@@ -87,7 +87,7 @@ public class WeatherServiceTest {
 		weatherEntity.setApiKey("123");
 		weatherEntity.setDescription("Scattered Clouds");
 		
-		when(repository.findByApiKey("123")).thenReturn(Optional.ofNullable(weatherEntity));
+		when(repository.findByCityAndCountry("Melbourne", "AU")).thenReturn(Optional.ofNullable(weatherEntity));
 		
 		WeatherWrapper wrapper = weatherService.getWeatherDetails(weatherEntity);
 		
