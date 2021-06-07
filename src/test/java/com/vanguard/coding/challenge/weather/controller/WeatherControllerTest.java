@@ -31,6 +31,7 @@ public class WeatherControllerTest {
 	private static final String INVALID_URL = "/getWeatherDetails?country=AU&apiKey=c8aadb8f4504f95b5a9144313cd96f84";
 	private static final String INVALID_API_KEY = "/getWeatherDetails?city=Melbourne&country=AU&apiKey=c8aadb8f4504f95b5a9144313cd96f89";
 	private static final String INVALID_URL_COUNTRY = "/getWeatherDetails?city=Melbourne&apiKey=c8aadb8f4504f95b5a9144313cd96f84";
+	private static final String MISSING_API_KEY = "/getWeatherDetails?city=Melbourne&country=AU";
 
 
 	@Test
@@ -70,6 +71,17 @@ public class WeatherControllerTest {
 
 		Mockito.when(weatherService.getWeatherDetails(new WeatherEntity())).thenReturn(weatherWrapper);
 		mockMvc.perform(get(INVALID_API_KEY)).andExpect(status().isUnauthorized());
+
+	}
+	
+	@Test
+	public void testGetWeatherService_negative_noApiKey() throws Exception {
+
+		WeatherWrapper weatherWrapper = new WeatherWrapper();
+		weatherWrapper.setDescription("Overcast clouds");
+
+		Mockito.when(weatherService.getWeatherDetails(new WeatherEntity())).thenReturn(weatherWrapper);
+		mockMvc.perform(get(MISSING_API_KEY)).andExpect(status().isBadRequest());
 
 	}
 	
