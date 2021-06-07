@@ -41,11 +41,11 @@ public class ApiKeyRequestThrottle implements Filter {
 	@Value("${rate.limit.hourly.limit}")
 	private int MAX_REQUESTS_PER_HOUR;
 
-	private LoadingCache<String, Integer> requestCountsPerIpAddress;
+	private LoadingCache<String, Integer> requestCountsApiKey;
 
 	public ApiKeyRequestThrottle() {
 		super();
-		requestCountsPerIpAddress = CacheBuilder.newBuilder().expireAfterWrite(1, TimeUnit.HOURS)
+		requestCountsApiKey = CacheBuilder.newBuilder().expireAfterWrite(1, TimeUnit.HOURS)
 				.build(new CacheLoader<String, Integer>() {
 					public Integer load(String key) {
 						return 0;
@@ -63,13 +63,13 @@ public class ApiKeyRequestThrottle implements Filter {
 			throws IOException, ServletException {
 		
 		HttpServletResponse httpServletResponse = (HttpServletResponse) servletResponse;
-		String clientIpAddress = getClientIP((HttpServletRequest) servletRequest);
+		String apiKey = getClientApiKey((HttpServletRequest) servletRequest);
 		
-		logger.info("clientIpAddress - {}",clientIpAddress);
+		logger.info("client apiKey - {}",apiKey);
 		
-		if (isMaximumRequestsPerHourExceeded(clientIpAddress)) {
+		if (isMaximumRequestsPerHourExceeded(apiKey)) {
 			
-			logger.info("Maximum requests exceeded for IP Address - {} ",clientIpAddress);
+			logger.info("Maximum requests exceeded for Client API KEY - {} ",apiKey);
 			
 			httpServletResponse.setStatus(HttpStatus.TOO_MANY_REQUESTS.value());
 			httpServletResponse.getWriter().write(AppConstants.API_THROTTLE_ERROR_MESSAGE + MAX_REQUESTS_PER_HOUR);
@@ -80,41 +80,38 @@ public class ApiKeyRequestThrottle implements Filter {
 	}
 
 	/**
-	 * Validates the no.of requests received for the IP Address
+	 * Validates the no.of requests received for the apiKey
 	 * 
-	 * @param clientIpAddress
+	 * @param client apiKey
 	 * 
 	 * @return true when rate exceeded
 	 */
-	private boolean isMaximumRequestsPerHourExceeded(String clientIpAddress) {
+	private boolean isMaximumRequestsPerHourExceeded(String clientapiKey) {
 		int requests = 0;
 		try {
-			requests = requestCountsPerIpAddress.get(clientIpAddress);
+			requests = requestCountsApiKey.get(clientapiKey);
 			if (requests == MAX_REQUESTS_PER_HOUR) {
-				requestCountsPerIpAddress.put(clientIpAddress, requests);
+				requestCountsApiKey.put(clientapiKey, requests);
 				return true;
 			}
 		} catch (ExecutionException e) {
 			requests = 0;
 		}
 		requests++;
-		requestCountsPerIpAddress.put(clientIpAddress, requests);
+		requestCountsApiKey.put(clientapiKey, requests);
 		return false;
 	}
 
 	/**
-	 * Get the clients IP Address from the request header
+	 * Get the clients Api Key from the request param
 	 * 
 	 * @param request
 	 * 
-	 * @return String IP Address
+	 * @return String API KEY
 	 */
-	public String getClientIP(HttpServletRequest request) {
-		String xfHeader = request.getHeader("X-Forwarded-For");
-		if (xfHeader == null) {
-			return request.getRemoteAddr();
-		}
-		return xfHeader.split(",")[0];
+	public String getClientApiKey(HttpServletRequest request) {
+		String apiKey = request.getParameter("apiKey");
+		return apiKey;
 	}
 
 	@Override
