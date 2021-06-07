@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.vangaurd.coding.challenge.weather.rest.dao;
+package com.vanguard.coding.challenge.weather.rest.dao;
 
 /**
  * @author praveendas
