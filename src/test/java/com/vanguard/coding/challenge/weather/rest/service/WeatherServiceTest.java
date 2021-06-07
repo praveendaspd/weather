@@ -3,7 +3,6 @@
  */
 package com.vanguard.coding.challenge.weather.rest.service;
 
-import static org.hamcrest.CoreMatchers.anyOf;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
@@ -23,7 +22,6 @@ import com.vanguard.coding.challenge.weather.rest.domain.WeatherDetails;
 import com.vanguard.coding.challenge.weather.rest.domain.WeatherWrapper;
 import com.vanguard.coding.challenge.weather.rest.entity.WeatherEntity;
 import com.vanguard.coding.challenge.weather.rest.repository.WeatherRepository;
-import com.vanguard.coding.challenge.weather.rest.service.WeatherService;
 
 /**
  * @author praveendas
