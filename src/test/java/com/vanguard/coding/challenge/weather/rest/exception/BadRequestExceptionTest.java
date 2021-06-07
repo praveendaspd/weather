@@ -34,8 +34,8 @@ public class BadRequestExceptionTest {
 	@Test
 	public void validateException() throws Exception {
 		
-		Assertions.assertThrows(BadRequestException.class, () -> {
-			mockMvc.perform(get(INVALID_URL));
+		Assertions.assertThrows(Exception.class, () -> {
+			mockMvc.perform(get(null));
 		});
 		
 	}
