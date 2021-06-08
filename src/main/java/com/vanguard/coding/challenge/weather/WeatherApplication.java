@@ -6,6 +6,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
+import com.vanguard.coding.challenge.weather.common.AppConstants;
+
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -19,7 +21,7 @@ public class WeatherApplication {
 
 		SpringApplication.run(WeatherApplication.class, args);
 
-		logger.info("###### WeatherApplication is up and running ##### ");
+		logger.info(AppConstants.APP_START_UP_MSG);
 
 	}
 
