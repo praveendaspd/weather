@@ -35,7 +35,7 @@ public class WeatherController {
 	@Autowired
 	WeatherService weatherService;
 
-	@GetMapping("/getWeatherDetails")
+	@GetMapping("/weather-forecast/region")
 	public ResponseEntity<WeatherWrapper> getCurrentWeather(@RequestParam(name="city" , required = false) String city,
 															@RequestParam(name="country", required = false) String country,
 															@RequestParam(name="apiKey" , required = false) String apiKey) throws BadRequestException{
