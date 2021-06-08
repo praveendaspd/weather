@@ -35,6 +35,9 @@ public class WeatherController {
 
 	@Autowired
 	WeatherService weatherService;
+	
+	@Autowired
+	InputValidation inputValidation;
 
 	@GetMapping("/weather-forecast/region")
 	public ResponseEntity<WeatherWrapper> getCurrentWeather(@RequestParam(name = "city", required = false) String city,
@@ -43,7 +46,6 @@ public class WeatherController {
 
 		
 		// Validation to throw the field specific error back to the caller 
-		InputValidation inputValidation = new InputValidation();
 		inputValidation.validateInputs(country, city);
 		
 		logger.debug("city - {}", city);

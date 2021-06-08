@@ -50,7 +50,7 @@ public class ApiKeyRequestFilter extends GenericFilterBean {
 			logger.info("API Key is NULL!");
 
 			HttpServletResponse resp = (HttpServletResponse) response;
-			String error = "API Key Validation failed - Provide API KEY!";
+			String error = AppConstants.API_KEY_VALIDATION_MESSAGE;
 
 			resp.reset();
 			resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
@@ -73,7 +73,7 @@ public class ApiKeyRequestFilter extends GenericFilterBean {
 				logger.info("API Key Validation failed! Invalid apiKey : {}", apiKey);
 
 				HttpServletResponse resp = (HttpServletResponse) response;
-				String error = "API Key Validation failed - Invalid API KEY : " + apiKey;
+				String error = AppConstants.API_KEY_INVALID_MESSAGE + apiKey;
 
 				resp.reset();
 				resp.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
