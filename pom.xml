@@ -11,7 +11,7 @@
 	</parent>
 	<groupId>com.vangaurd.coding.challenge</groupId>
 	<artifactId>weather</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0.0</version>
 	<name>weather</name>
 	<description>Coding Challenge Project for Weather App</description>
 	<properties>
@@ -59,6 +59,13 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<configuration>
+							<mainClass>com.vanguard.coding.challenge.weather.WeatherApplication</mainClass>
+						</configuration>
+					</execution>
+				</executions>
 				<configuration>
 					<excludes>
 						<exclude>
