@@ -30,5 +30,7 @@ public class AppConstants {
 	//Validations
 	public static String CITY_VALIDATION_MESSAGE = "city field is required!";
 	public static String COUNTRY_VALIDATION_MESSAGE = "country field is required!";
+	public static String API_KEY_VALIDATION_MESSAGE = "API Key Validation failed - Provide API KEY!";
+	public static String API_KEY_INVALID_MESSAGE = "API Key Validation failed - Invalid API KEY : ";
 	
 }

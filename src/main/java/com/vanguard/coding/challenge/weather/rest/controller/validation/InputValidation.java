@@ -1,8 +1,11 @@
 package com.vanguard.coding.challenge.weather.rest.controller.validation;
 
+import org.springframework.stereotype.Component;
+
 import com.vanguard.coding.challenge.weather.common.AppConstants;
 import com.vanguard.coding.challenge.weather.rest.exception.BadRequestException;
 
+@Component
 public class InputValidation {
 
 	public boolean validateInputs(String country, String city) {
