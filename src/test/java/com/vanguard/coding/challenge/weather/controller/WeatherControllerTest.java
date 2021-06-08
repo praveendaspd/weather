@@ -27,11 +27,11 @@ public class WeatherControllerTest {
 	@MockBean
 	private WeatherService weatherService;
 	
-	private static final String VALID_URL = "/getWeatherDetails?city=Melbourne&country=AU&apiKey=c8aadb8f4504f95b5a9144313cd96f84";
-	private static final String INVALID_URL = "/getWeatherDetails?country=AU&apiKey=c8aadb8f4504f95b5a9144313cd96f84";
-	private static final String INVALID_API_KEY = "/getWeatherDetails?city=Melbourne&country=AU&apiKey=c8aadb8f4504f95b5a9144313cd96f89";
-	private static final String INVALID_URL_COUNTRY = "/getWeatherDetails?city=Melbourne&apiKey=c8aadb8f4504f95b5a9144313cd96f84";
-	private static final String MISSING_API_KEY = "/getWeatherDetails?city=Melbourne&country=AU";
+	private static final String VALID_URL = "/weather-forecast/region?city=Melbourne&country=AU&apiKey=c8aadb8f4504f95b5a9144313cd96f84";
+	private static final String INVALID_URL = "/weather-forecast/region?country=AU&apiKey=c8aadb8f4504f95b5a9144313cd96f84";
+	private static final String INVALID_API_KEY = "/weather-forecast/region?city=Melbourne&country=AU&apiKey=c8aadb8f4504f95b5a9144313cd96f89";
+	private static final String INVALID_URL_COUNTRY = "/weather-forecast/region?city=Melbourne&apiKey=c8aadb8f4504f95b5a9144313cd96f84";
+	private static final String MISSING_API_KEY = "/weather-forecast/region?city=Melbourne&country=AU";
 
 
 	@Test
