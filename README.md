@@ -6,7 +6,15 @@
 
 	
 ## How to run the app?
-	Run As -> Spring boot app 
+	
+1 IDE 
+
+	- Run As -> Spring boot app
+	
+2 Command line
+
+	- $ mvn clean package spring-boot:repackage
+	- $ java -jar target/weather-1.0.0.jar
 	
 
 ## Weather API local url for the 5 keys
