@@ -36,7 +36,7 @@ import lombok.extern.slf4j.Slf4j;
 @Component
 public class ApiKeyRequestThrottle implements Filter {
 	
-	Logger logger = LoggerFactory.getLogger(ApiKeyRequestThrottle.class);
+	private static final Logger logger = LoggerFactory.getLogger(ApiKeyRequestThrottle.class);
 
 	@Value("${rate.limit.hourly.limit}")
 	private int MAX_REQUESTS_PER_HOUR;

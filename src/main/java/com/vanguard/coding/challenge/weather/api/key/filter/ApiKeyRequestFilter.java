@@ -34,7 +34,7 @@ import lombok.extern.slf4j.Slf4j;
 @Component
 public class ApiKeyRequestFilter extends GenericFilterBean {
 
-	Logger logger = LoggerFactory.getLogger(ApiKeyRequestFilter.class);
+	private static final Logger logger = LoggerFactory.getLogger(ApiKeyRequestFilter.class);
 
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
@@ -94,9 +94,6 @@ public class ApiKeyRequestFilter extends GenericFilterBean {
 	 * 
 	 */
 	private Optional<ApiKey> findkey(String key) {
-
-		// TODO : If time permits, move this to H2 database
-		// Optional<ApiKey> apiKeyOptional = this.apiKeyRepository.findOneByKey(apiKey);
 
 		List<String> apiKeys = new ArrayList<String>();
 		apiKeys.add(AppConstants.API_KEY_1);

@@ -24,6 +24,8 @@ import com.vanguard.coding.challenge.weather.rest.repository.WeatherRepository;
  */
 @Service
 public class WeatherService {
+	
+	private static final Logger logger = LoggerFactory.getLogger(WeatherService.class);
 
 	@Autowired
 	RestClient restClient;
@@ -43,8 +45,6 @@ public class WeatherService {
 	 */
 	public WeatherWrapper getWeatherDetails(WeatherEntity weatherEntity) {
 
-		Logger logger = LoggerFactory.getLogger(WeatherService.class);
-		
 		WeatherDetails weatherDetails = new WeatherDetails();
 		
 		// Wrapper to only extract and store Description field
