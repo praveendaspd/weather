@@ -23,7 +23,7 @@ public class RestClient {
 
 	RestTemplate restTemplate = new RestTemplate();
 
-	Logger logger = LoggerFactory.getLogger(RestClient.class);
+	private static final Logger logger = LoggerFactory.getLogger(RestClient.class);
 
 	final static String uri = "http://api.openweathermap.org/data/2.5/weather?q=Melbourne&appid=c8aadb8f4504f95b5a9144313cd96f81";
 

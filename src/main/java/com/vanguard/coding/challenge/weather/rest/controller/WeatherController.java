@@ -31,7 +31,7 @@ import lombok.extern.slf4j.Slf4j;
 @RestController
 public class WeatherController {
 
-	Logger logger = LoggerFactory.getLogger(WeatherController.class);
+	private static final Logger logger = LoggerFactory.getLogger(WeatherController.class);
 
 	@Autowired
 	WeatherService weatherService;
