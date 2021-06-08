@@ -9,6 +9,10 @@ package com.vanguard.coding.challenge.weather.common;
  */
 public class AppConstants {
 	
+	//Generic Messages
+	public static String APP_START_UP_MSG = "###### WeatherApplication is up and running ##### ";
+	
+	//open weather map API
 	public static String OPEN_WEATHER_MAP_QUERY = "http://api.openweathermap.org/data/2.5/weather?q=";
 	
 	//API Keys
@@ -26,5 +30,5 @@ public class AppConstants {
 	//Validations
 	public static String CITY_VALIDATION_MESSAGE = "city field is required!";
 	public static String COUNTRY_VALIDATION_MESSAGE = "country field is required!";
-
+	
 }
