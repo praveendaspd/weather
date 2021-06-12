@@ -3,16 +3,18 @@
  */
 package com.vanguard.coding.challenge.weather.rest.controller;
 
+import javax.validation.constraints.NotNull;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.vanguard.coding.challenge.weather.rest.controller.validation.InputValidation;
 import com.vanguard.coding.challenge.weather.rest.domain.WeatherWrapper;
 import com.vanguard.coding.challenge.weather.rest.entity.WeatherEntity;
 import com.vanguard.coding.challenge.weather.rest.exception.BadRequestException;
@@ -28,6 +30,7 @@ import lombok.extern.slf4j.Slf4j;
  *
  */
 @Slf4j
+@Validated
 @RestController
 public class WeatherController {
 
@@ -36,17 +39,11 @@ public class WeatherController {
 	@Autowired
 	WeatherService weatherService;
 	
-	@Autowired
-	InputValidation inputValidation;
-
 	@GetMapping("/weather-forecast/region")
-	public ResponseEntity<WeatherWrapper> getCurrentWeather(@RequestParam(name = "city", required = false) String city,
-			@RequestParam(name = "country", required = false) String country,
+	public ResponseEntity<WeatherWrapper> getCurrentWeather(@RequestParam(name = "city", required = false) @NotNull String city,
+			@RequestParam(name = "country", required = false) @NotNull String country,
 			@RequestParam(name = "apiKey", required = false) String apiKey) throws BadRequestException {
 
-		
-		// Validation to throw the field specific error back to the caller 
-		inputValidation.validateInputs(country, city);
 		
 		logger.debug("city - {}", city);
 		logger.debug("country - {}", country);
