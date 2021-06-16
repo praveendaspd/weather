@@ -1,5 +1,3 @@
-## Vanguard Internal Coding Challenge
- 
 ## Weather data API
 
  A Spring Boot REST API that provides the details of current weather conditions

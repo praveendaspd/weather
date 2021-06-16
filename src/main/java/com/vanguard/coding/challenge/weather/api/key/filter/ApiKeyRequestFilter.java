@@ -15,8 +15,6 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.GenericFilterBean;
 
@@ -34,8 +32,6 @@ import lombok.extern.slf4j.Slf4j;
 @Component
 public class ApiKeyRequestFilter extends GenericFilterBean {
 
-	private static final Logger logger = LoggerFactory.getLogger(ApiKeyRequestFilter.class);
-
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
@@ -47,7 +43,7 @@ public class ApiKeyRequestFilter extends GenericFilterBean {
 
 		if (null == apiKey) {
 
-			logger.info("API Key is NULL!");
+			log.info("API Key is NULL!");
 
 			HttpServletResponse resp = (HttpServletResponse) response;
 			String error = AppConstants.API_KEY_VALIDATION_MESSAGE;
@@ -59,18 +55,18 @@ public class ApiKeyRequestFilter extends GenericFilterBean {
 
 		} else {
 
-			logger.info("Verifying apiKey: {}", apiKey);
+			log.info("Verifying apiKey: {}", apiKey);
 
 			Optional<ApiKey> apiKeyOptional = findkey(apiKey);
 
 			if (apiKeyOptional.isPresent()) {
 
-				logger.info("apiKey validation successful for apiKey : {}", apiKey);
+				log.info("apiKey validation successful for apiKey : {}", apiKey);
 				chain.doFilter(request, response);
 
 			} else {
 
-				logger.info("API Key Validation failed! Invalid apiKey : {}", apiKey);
+				log.info("API Key Validation failed! Invalid apiKey : {}", apiKey);
 
 				HttpServletResponse resp = (HttpServletResponse) response;
 				String error = AppConstants.API_KEY_INVALID_MESSAGE + apiKey;

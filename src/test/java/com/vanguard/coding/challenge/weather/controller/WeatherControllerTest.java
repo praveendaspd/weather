@@ -13,7 +13,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.test.web.servlet.MockMvc;
 
-import com.vanguard.coding.challenge.weather.rest.domain.WeatherWrapper;
+import com.vanguard.coding.challenge.weather.model.WeatherWrapper;
 import com.vanguard.coding.challenge.weather.rest.entity.WeatherEntity;
 import com.vanguard.coding.challenge.weather.rest.service.WeatherService;
 

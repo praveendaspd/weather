@@ -5,16 +5,16 @@ package com.vanguard.coding.challenge.weather.rest.service;
 
 import java.util.Optional;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.vanguard.coding.challenge.weather.model.WeatherDetails;
+import com.vanguard.coding.challenge.weather.model.WeatherWrapper;
 import com.vanguard.coding.challenge.weather.rest.client.RestClient;
-import com.vanguard.coding.challenge.weather.rest.domain.WeatherDetails;
-import com.vanguard.coding.challenge.weather.rest.domain.WeatherWrapper;
 import com.vanguard.coding.challenge.weather.rest.entity.WeatherEntity;
 import com.vanguard.coding.challenge.weather.rest.repository.WeatherRepository;
+
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * Service Layer class for the Weather App
@@ -22,11 +22,10 @@ import com.vanguard.coding.challenge.weather.rest.repository.WeatherRepository;
  * @author praveendas
  *
  */
+@Slf4j
 @Service
 public class WeatherService {
 	
-	private static final Logger logger = LoggerFactory.getLogger(WeatherService.class);
-
 	@Autowired
 	RestClient restClient;
 	
@@ -50,7 +49,7 @@ public class WeatherService {
 		// Wrapper to only extract and store Description field
 		WeatherWrapper wrapper = new WeatherWrapper();
 		
-		logger.info("Weather Entity - {} ",weatherEntity.toString());
+		log.info("Weather Entity - {} ",weatherEntity.toString());
 		
 		//Always check the database before making call to the actual API 
 		Optional<WeatherEntity> weather = repository.findByCityAndCountry(weatherEntity.getCity() , weatherEntity.getCountry());
@@ -58,7 +57,7 @@ public class WeatherService {
 		if(weather.isPresent()) {
 			
 			WeatherEntity entity = weather.get();
-			logger.info("Search data found in Database - {} ",entity.toString());
+			log.info("Search data found in Database - {} ",entity.toString());
 			
 			// Wrapper to only extract and store Description field
 			wrapper.setDescription(entity.getDescription());
@@ -73,12 +72,12 @@ public class WeatherService {
 			entity.setApiKey(weatherEntity.getApiKey());
 			entity.setDescription(weatherDetails.getWeather().get(0).getDescription());
 			
-			WeatherEntity ent = repository.saveAndFlush(entity);
-			logger.info("Search Data unavailable. Calling OpenWeatherMap API and persting the response in DB - {} ",ent);
+			WeatherEntity ent = repository.save(entity);
+			log.info("Search Data unavailable. Calling OpenWeatherMap API and persting the response in DB - {} ",ent);
 			
 			wrapper.setDescription(weatherDetails.getWeather().get(0).getDescription());
 			
-			logger.info(weatherDetails.toString());
+			log.info(weatherDetails.toString());
 		}
 
 		return wrapper;

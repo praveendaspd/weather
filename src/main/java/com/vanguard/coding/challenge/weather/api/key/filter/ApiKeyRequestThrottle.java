@@ -13,8 +13,6 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
@@ -36,10 +34,8 @@ import lombok.extern.slf4j.Slf4j;
 @Component
 public class ApiKeyRequestThrottle implements Filter {
 	
-	private static final Logger logger = LoggerFactory.getLogger(ApiKeyRequestThrottle.class);
-
 	@Value("${rate.limit.hourly.limit}")
-	private int MAX_REQUESTS_PER_HOUR;
+	private int maxRequestsPerHour;
 
 	private LoadingCache<String, Integer> requestCountsApiKey;
 
@@ -65,14 +61,14 @@ public class ApiKeyRequestThrottle implements Filter {
 		HttpServletResponse httpServletResponse = (HttpServletResponse) servletResponse;
 		String apiKey = getClientApiKey((HttpServletRequest) servletRequest);
 		
-		logger.info("client apiKey - {}",apiKey);
+		log.info("client apiKey - {}",apiKey);
 		
 		if (isMaximumRequestsPerHourExceeded(apiKey)) {
 			
-			logger.info("Maximum requests exceeded for Client API KEY - {} ",apiKey);
+			log.info("Maximum requests exceeded for Client API KEY - {} ",apiKey);
 			
 			httpServletResponse.setStatus(HttpStatus.TOO_MANY_REQUESTS.value());
-			httpServletResponse.getWriter().write(AppConstants.API_THROTTLE_ERROR_MESSAGE + MAX_REQUESTS_PER_HOUR);
+			httpServletResponse.getWriter().write(AppConstants.API_THROTTLE_ERROR_MESSAGE + maxRequestsPerHour);
 			return;
 		}
 
@@ -90,7 +86,7 @@ public class ApiKeyRequestThrottle implements Filter {
 		int requests = 0;
 		try {
 			requests = requestCountsApiKey.get(clientapiKey);
-			if (requests == MAX_REQUESTS_PER_HOUR) {
+			if (requests == maxRequestsPerHour) {
 				requestCountsApiKey.put(clientapiKey, requests);
 				return true;
 			}
