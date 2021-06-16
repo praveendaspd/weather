@@ -5,8 +5,6 @@ package com.vanguard.coding.challenge.weather.rest.controller;
 
 import javax.validation.constraints.NotNull;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,7 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.vanguard.coding.challenge.weather.rest.domain.WeatherWrapper;
+import com.vanguard.coding.challenge.weather.model.WeatherWrapper;
 import com.vanguard.coding.challenge.weather.rest.entity.WeatherEntity;
 import com.vanguard.coding.challenge.weather.rest.exception.BadRequestException;
 import com.vanguard.coding.challenge.weather.rest.service.WeatherService;
@@ -34,8 +32,6 @@ import lombok.extern.slf4j.Slf4j;
 @RestController
 public class WeatherController {
 
-	private static final Logger logger = LoggerFactory.getLogger(WeatherController.class);
-
 	@Autowired
 	WeatherService weatherService;
 	
@@ -45,9 +41,9 @@ public class WeatherController {
 			@RequestParam(name = "apiKey", required = false) String apiKey) throws BadRequestException {
 
 		
-		logger.debug("city - {}", city);
-		logger.debug("country - {}", country);
-		logger.debug("apiKey - {}", apiKey);
+		log.debug("city - {}", city);
+		log.debug("country - {}", country);
+		log.debug("apiKey - {}", apiKey);
 
 		WeatherEntity weatherEntity = new WeatherEntity();
 		weatherEntity.setCity(city);
@@ -59,7 +55,7 @@ public class WeatherController {
 		// Service layer call
 		wrapper = weatherService.getWeatherDetails(weatherEntity);
 
-		logger.info(wrapper.toString());
+		log.info(wrapper.toString());
 
 		return new ResponseEntity<WeatherWrapper>(wrapper, HttpStatus.OK);
 	}

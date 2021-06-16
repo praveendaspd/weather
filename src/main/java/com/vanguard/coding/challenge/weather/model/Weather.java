@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.vanguard.coding.challenge.weather.rest.domain;
+package com.vanguard.coding.challenge.weather.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 

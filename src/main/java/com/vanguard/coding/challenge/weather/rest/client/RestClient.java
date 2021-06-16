@@ -3,14 +3,14 @@
  */
 package com.vanguard.coding.challenge.weather.rest.client;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
-import com.vanguard.coding.challenge.weather.common.AppConstants;
-import com.vanguard.coding.challenge.weather.rest.domain.WeatherDetails;
+import com.vanguard.coding.challenge.weather.model.WeatherDetails;
 import com.vanguard.coding.challenge.weather.rest.entity.WeatherEntity;
+
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * Spring managed Component to make REST API calls to OpenWeatherMap
@@ -18,14 +18,18 @@ import com.vanguard.coding.challenge.weather.rest.entity.WeatherEntity;
  * @author praveendas
  *
  */
+@Slf4j
 @Component
 public class RestClient {
 
+	@Value("${api.uri}")
+	private String uri;
+	
+	@Value("${api.key}")
+	private String apiKey;
+	
 	RestTemplate restTemplate = new RestTemplate();
 
-	private static final Logger logger = LoggerFactory.getLogger(RestClient.class);
-
-	final static String uri = "http://api.openweathermap.org/data/2.5/weather?q=Melbourne&appid=c8aadb8f4504f95b5a9144313cd96f81";
 
 	/**
 	 * Method to call the OpenWeatherMap API
@@ -37,32 +41,32 @@ public class RestClient {
 
 		WeatherDetails weatherDetails = new WeatherDetails();
 		
-		String uri = constructUri(weatherEntity);
+		String url = constructUrl(weatherEntity);
 
 		// Call the OpenWeatherMap API
-		weatherDetails = restTemplate.getForObject(uri, WeatherDetails.class);
+		weatherDetails = restTemplate.getForObject(url, WeatherDetails.class);
 
 		return weatherDetails;
 	}
 
 	/**
-	 * Build the final URI using the weather entity
+	 * Build the final URL using the weather entity
 	 * 
 	 * @param weatherEntity
 	 * 
-	 * @return String URI
+	 * @return String URL
 	 */
-	private String constructUri(WeatherEntity weatherEntity) {
+	private String constructUrl(WeatherEntity weatherEntity) {
 		
-		StringBuffer URI = new StringBuffer(AppConstants.OPEN_WEATHER_MAP_QUERY);
+		StringBuffer URI = new StringBuffer(uri);
 		
 		URI.append(weatherEntity.getCity());
 		URI.append(",");
 		URI.append(weatherEntity.getCountry());
 		URI.append("&appid=");
-		URI.append(AppConstants.API_KEY_2);
+		URI.append(apiKey);
 		
-		logger.info(URI.toString());
+		log.info(URI.toString());
 		
 		return URI.toString();
 		

@@ -5,8 +5,6 @@ package com.vanguard.coding.challenge.weather.rest.exception.handler;
 
 import javax.validation.ConstraintViolationException;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -31,9 +29,6 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @RestControllerAdvice
 public class GlobalExceptionHandler {
-	
-	private static final Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);
-	
 	
 	/**
 	 * Handle HttpClientErrorException
@@ -73,7 +68,7 @@ public class GlobalExceptionHandler {
 	public ResponseEntity<String> handleInternalServerError(InternalServerError e) {
 
 		InternalServerException exception = new InternalServerException(e.getLocalizedMessage());
-		logger.info(exception.getMessage());
+		log.info(exception.getMessage());
 		
 		return new ResponseEntity<String>(AppConstants.INTERNAL_SERVER_EXCEPTION_MESSAGE,HttpStatus.INTERNAL_SERVER_ERROR);
 		

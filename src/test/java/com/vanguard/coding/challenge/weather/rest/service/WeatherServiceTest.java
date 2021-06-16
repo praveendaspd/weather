@@ -16,10 +16,10 @@ import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.mockito.junit.MockitoJUnitRunner;
 
+import com.vanguard.coding.challenge.weather.model.Weather;
+import com.vanguard.coding.challenge.weather.model.WeatherDetails;
+import com.vanguard.coding.challenge.weather.model.WeatherWrapper;
 import com.vanguard.coding.challenge.weather.rest.client.RestClient;
-import com.vanguard.coding.challenge.weather.rest.domain.Weather;
-import com.vanguard.coding.challenge.weather.rest.domain.WeatherDetails;
-import com.vanguard.coding.challenge.weather.rest.domain.WeatherWrapper;
 import com.vanguard.coding.challenge.weather.rest.entity.WeatherEntity;
 import com.vanguard.coding.challenge.weather.rest.repository.WeatherRepository;
 

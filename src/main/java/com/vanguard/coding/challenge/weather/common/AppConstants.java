@@ -9,12 +9,6 @@ package com.vanguard.coding.challenge.weather.common;
  */
 public class AppConstants {
 	
-	//Generic Messages
-	public static String APP_START_UP_MSG = "###### WeatherApplication is up and running ##### ";
-	
-	//open weather map API
-	public static String OPEN_WEATHER_MAP_QUERY = "http://api.openweathermap.org/data/2.5/weather?q=";
-	
 	//API Keys
 	public static String API_KEY_1 = "c8aadb8f4504f95b5a9144313cd96f80";
 	// The actual apiKey received from OpenWeather
@@ -22,6 +16,9 @@ public class AppConstants {
 	public static String API_KEY_3 = "c8aadb8f4504f95b5a9144313cd96f82";
 	public static String API_KEY_4 = "c8aadb8f4504f95b5a9144313cd96f83";
 	public static String API_KEY_5 = "c8aadb8f4504f95b5a9144313cd96f84";
+	
+	//Generic Messages
+	public static String APP_START_UP_MSG = "###### WeatherApplication is up and running ##### ";
 	
 	//Error messages
 	public static String API_THROTTLE_ERROR_MESSAGE = "Too many requests! Maximum requests allowed per hour is - ";
